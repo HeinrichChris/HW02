@@ -20,3 +20,17 @@ void Rain::draw(){
 	glVertex2f(x, y);
 	glEnd();
 }
+
+void Rain::update(){
+	x += velX;
+	y += velY;
+	z += velZ;
+
+	if(velY > 5){
+		velY--;
+	}
+}
+
+void Rain::collision(Shape* shape){
+	// do nothing
+}
