@@ -1,10 +1,12 @@
+#pragma once
+
 #include "cinder/app/AppBasic.h"
 
 class Shape{
 public:
-	void init();
+	Shape();
 
-	virtual void draw() = 0;
+	void draw();
 
 	int* getLoc();
 	void setX(int);
@@ -15,7 +17,7 @@ public:
 	void setVelocityZ(int);
 
 	int getType();
-	virtual void collision(Shape*) = 0;
+	void collision(Shape*);
 
 	int getHP();
 	void setHP(int);

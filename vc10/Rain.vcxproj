@@ -106,7 +106,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\Circle.cpp" />
     <ClCompile Include="..\src\DNode.cpp" />
-    <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\Rain.cpp" />
     <ClCompile Include="..\src\RainApp.cpp" />
     <ClCompile Include="..\src\Shape.cpp" />
@@ -116,7 +115,6 @@
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\src\Circle.h" />
     <ClInclude Include="..\src\DoubleLinkedList.h" />
-    <ClInclude Include="..\src\Player.h" />
     <ClInclude Include="..\src\Rain.h" />
     <ClInclude Include="..\src\Shape.h" />
     <ClInclude Include="..\src\Square.h" />

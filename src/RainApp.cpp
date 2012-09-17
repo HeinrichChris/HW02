@@ -21,8 +21,6 @@ class RainApp : public AppBasic {
   private:
 	  DNode* rainSentinel;
 	  DNode* shapeSentinel;
-	  //DNode* destroyedSentinel;
-	  //Player player; // no player in this version
 
 	  Surface* background_;
 	  Surface* sun_;
@@ -45,13 +43,10 @@ void RainApp::setup()
 	sun_ = &sun;
 	background_ = sun_;
 
-	//player = new Player();
-
 	rainSentinel = new DNode;
 	shapeSentinel = new DNode;
-	//destroyedSentinel = new DNode;
 
-	phase == 1;
+	phase = 1;
 	remainingShapes = 2;
 }
 

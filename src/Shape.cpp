@@ -1,6 +1,6 @@
 #include "Shape.h"
 
-void Shape::init(){
+Shape::Shape(){
 	x = y= z = 0;
 	velX = velY = velZ = 0;
 	

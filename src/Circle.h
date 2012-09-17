@@ -5,4 +5,4 @@ public:
 	Circle();
 	void draw();
 	void collision(Shape*);
-}
+};
