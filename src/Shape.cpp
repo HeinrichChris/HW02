@@ -5,10 +5,43 @@ Shape::Shape(){
 	velX = velY = velZ = 0;
 	
 	color = new uint8_t[3];
-	color[0] = color[1] = color[2] = 255;
+	color[0] = 255;
+	color[1] = 255;
+	color[2] = 255;
 
 	hp = 100;
 	type = -1;
+	radius = 10;
+}
+
+void Shape::square(){
+	type = 2;
+
+	radius = 10;
+
+	color[0] = 255;
+	color[1] = 0;
+	color[2] = 255;
+}
+
+void Shape::rain(){
+	color[0] = 0;
+	color[1] = 100;
+	color[2] = 255;
+
+	type = 4;
+
+	hp = 5;
+}
+
+void Shape::circle(){
+	type = 1;
+
+	radius = 10;
+
+	color[0] = 255;
+	color[1] = 0;
+	color[2] = 255;
 }
 
 int Shape::getHP(){
@@ -53,15 +86,20 @@ void Shape::setVelocityZ(int newVel){
 }
 
 void Shape::update(){
-	x += velX;
-	y += velY;
-	z += velZ;
+	if(type > 0){
+		x += velX;
+		y += velY;
+		z += velZ;
 
-	if(type == 4){
-		velY -= 5;
-	}
-	else{
-		color[0] = color[2] = 255 * (int)(hp / 100.0);
+		if(type == 4){
+			if(velY > -10){
+				velY -= 1;
+			}
+		}
+		else{
+			color[0] = (int)(255 * (hp / 100.0));
+			color[2] = color[0];
+		}
 	}
 }
 

@@ -43,8 +43,19 @@ void RainApp::setup()
 	sun_ = &sun;
 	background_ = sun_;
 
+	Shape* dummy = new Shape();
+	dummy->rain();
+
 	rainSentinel = new DNode;
 	shapeSentinel = new DNode;
+
+	rainSentinel->shape = dummy;
+	shapeSentinel->shape = dummy;
+
+	rainSentinel->next = rainSentinel;
+	shapeSentinel->next = shapeSentinel;
+	rainSentinel->prev = rainSentinel;
+	shapeSentinel->prev = shapeSentinel;
 
 	phase = 1;
 	remainingShapes = 2;
@@ -54,15 +65,13 @@ void RainApp::mouseDown( MouseEvent event )
 {
 	if(remainingShapes > 0 && phase % 2 == 1){
 		remainingShapes--;
-		Shape* shape_;
+		Shape* shape_ = new Shape();
 
 		if(event.isLeftDown()){
-			Square* square = new Square();
-			shape_ = dynamic_cast<Shape*>(square);
+			shape_->square();
 		}
 		else{
-			Circle* circle = new Circle();
-			shape_ = dynamic_cast<Shape*>(circle);
+			shape_->circle();
 		}
 
 		shape_->setX(event.getX());
@@ -93,8 +102,10 @@ void RainApp::update()
 
 		if(remainingShapes > 0){
 			DNode* rain = new DNode();
-			Rain* rain_ = new Rain();
-			rain->shape = dynamic_cast<Shape*>(rain_);
+			Shape* rain_ = new Shape();
+			rain_->rain();
+			rain->shape = rain_;
+
 			rain->shape->setX(rand() % appWidth_);
 			rain->shape->setY(0);
 
@@ -137,13 +148,12 @@ void RainApp::draw()
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
 
-	gl::draw(*background_);
+	//gl::draw(*background_);
 
 	shapeSentinel->drawAll();
 	rainSentinel->drawAll();
 	//destroyedSentinel->drawAll();
 	
-	//player.draw();
 }
 
 CINDER_APP_BASIC( RainApp, RendererGl )

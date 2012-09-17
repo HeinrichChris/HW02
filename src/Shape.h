@@ -5,6 +5,9 @@
 class Shape{
 public:
 	Shape();
+	void square();
+	void rain();
+	void circle();
 
 	void draw();
 

@@ -106,18 +106,13 @@
   <ItemGroup>
     <ClCompile Include="..\src\Circle.cpp" />
     <ClCompile Include="..\src\DNode.cpp" />
-    <ClCompile Include="..\src\Rain.cpp" />
     <ClCompile Include="..\src\RainApp.cpp" />
     <ClCompile Include="..\src\Shape.cpp" />
-    <ClCompile Include="..\src\Square.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h" />
-    <ClInclude Include="..\src\Circle.h" />
     <ClInclude Include="..\src\DoubleLinkedList.h" />
-    <ClInclude Include="..\src\Rain.h" />
     <ClInclude Include="..\src\Shape.h" />
-    <ClInclude Include="..\src\Square.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />
