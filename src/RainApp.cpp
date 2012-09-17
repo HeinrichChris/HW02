@@ -5,6 +5,8 @@
 #include "Square.h"
 #include "Rain.h"
 #include "Player.h"
+#include "cinder/ImageIo.h"
+#include "Resources.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -21,7 +23,10 @@ class RainApp : public AppBasic {
 	  DNode* shapeSentinel;
 	  //DNode* destroyedSentinel;
 	  //Player player; // no player in this version
-	  Surface background;
+
+	  Surface* background_;
+	  Surface* sun_;
+	  Surface* rain_;
 
 	  int phase;
 	  int remainingShapes;
@@ -32,7 +37,13 @@ class RainApp : public AppBasic {
 
 void RainApp::setup()
 {
-	background loadImage(loadResource(RES_BACKGROUND));
+
+	Surface sun(loadImage( loadResource(RES_SUN) ));
+	Surface rain(loadImage( loadResource(RES_RAIN) ));
+
+	rain_ = &rain;
+	sun_ = &sun;
+	background_ = sun_;
 
 	//player = new Player();
 
@@ -51,10 +62,12 @@ void RainApp::mouseDown( MouseEvent event )
 		Shape* shape_;
 
 		if(event.isLeftDown()){
-			shape_ = (Shape*) new Square();
+			Square* square = new Square();
+			shape_ = dynamic_cast<Shape*>(square);
 		}
 		else{
-			shape_ = (Shape*) new Circle();
+			Circle* circle = new Circle();
+			shape_ = dynamic_cast<Shape*>(circle);
 		}
 
 		shape_->setX(event.getX());
@@ -77,6 +90,7 @@ void RainApp::update()
 		if(remainingShapes <= 0){
 			phase++;
 			remainingShapes = phase * 5;
+			background_ = rain_;
 		}
 	}
 	else{
@@ -84,7 +98,8 @@ void RainApp::update()
 
 		if(remainingShapes > 0){
 			DNode* rain = new DNode();
-			rain->shape = (Shape*) new Rain();
+			Rain* rain_ = new Rain();
+			rain->shape = dynamic_cast<Shape*>(rain_);
 			rain->shape->setX(rand() % appWidth_);
 			rain->shape->setY(0);
 
@@ -115,6 +130,7 @@ void RainApp::update()
 
 		if(rainSentinel->next == rainSentinel){
 			phase++;
+			background_ = sun_;
 		}
 
 	}
@@ -126,7 +142,7 @@ void RainApp::draw()
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
 
-	gl::draw(background);
+	gl::draw(*background_);
 
 	shapeSentinel->drawAll();
 	rainSentinel->drawAll();

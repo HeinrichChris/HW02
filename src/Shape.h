@@ -26,6 +26,7 @@ protected:
 	int x;
 	int y;
 	int z;
+	int radius;
 
 	int velX;
 	int velY;

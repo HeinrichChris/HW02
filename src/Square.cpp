@@ -3,7 +3,7 @@
 Square::Square(){
 	init();
 
-	type = 1;
+	type = 2;
 
 	radius = 10;
 
