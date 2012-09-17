@@ -3,6 +3,9 @@
 
 using namespace ci;
 
+/**
+* This is the constructor for Shape
+*/
 Shape::Shape(){
 	x = y= z = 0;
 	velX = velY = velZ = 0;
@@ -17,6 +20,9 @@ Shape::Shape(){
 	radius = 10;
 }
 
+/**
+* This sets a shape to run as a new square
+*/
 void Shape::square(){
 	type = 2;
 
@@ -27,6 +33,9 @@ void Shape::square(){
 	color[2] = 255;
 }
 
+/**
+* This sets a shape to run as a new rain particle
+*/
 void Shape::rain(){
 	color[0] = 0;
 	color[1] = 100;
@@ -42,6 +51,9 @@ void Shape::rain(){
 	velY = 0;
 }
 
+/**
+* This sets a shape to run as a new circle
+*/
 void Shape::circle(){
 	type = 1;
 
@@ -52,6 +64,7 @@ void Shape::circle(){
 	color[2] = 255;
 }
 
+// begin getters and setters
 int Shape::getHP(){
 	return hp;
 }
@@ -93,6 +106,11 @@ void Shape::setVelocityZ(int newVel){
 	velZ = newVel;
 }
 
+// end getters and setters
+
+/**
+* This method updates the shape according to its type
+*/
 void Shape::update(){
 	if(type > 0){
 		x += velX;
@@ -116,6 +134,9 @@ void Shape::update(){
 	}
 }
 
+/**
+* This method draws a shape according to its type
+*/
 void Shape::draw(){
 	if(type == 1){
 		// begin OpenGL drawing
@@ -138,6 +159,10 @@ void Shape::draw(){
 	}
 }
 
+/**
+* This method detects and handles collisions between shapes
+* @param shape This parameter points to the shape to detect collisions with
+*/
 void Shape::collision(Shape* shape){
 	if(type==1){
 		if(shape->getType() == 4){

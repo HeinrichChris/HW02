@@ -13,6 +13,9 @@ using namespace ci;
 using namespace ci::app;
 using namespace std;
 
+// This project fulfills A, B, D, E, G, K
+
+
 class RainApp : public AppBasic {
   public:
 	void setup();
@@ -46,6 +49,10 @@ void RainApp::prepareSettings(Settings* settings){
 	settings->setResizable(false);
 }
 
+/**
+* Updates all DNodes
+* @param sentinel The sentinel DNode for the list to be updated
+*/
 void RainApp::updateAll(DNode* sentinel){
 	DNode* current = sentinel->next;
 
@@ -57,6 +64,9 @@ void RainApp::updateAll(DNode* sentinel){
 	// DO NOT PUT DELETE STATEMENT HERE!  BAD THINGS HAPPEN!
 }
 
+/**
+* Initializes all the variables for the program
+*/
 void RainApp::setup()
 {
 	drawSun_ = true;
@@ -130,6 +140,11 @@ void RainApp::setup()
 	
 }
 
+
+/**
+* This is run whenever a key is pressed down.
+* @param event The KeyEvent that called the method
+*/
 void RainApp::keyDown( KeyEvent event){
 	drawSun_ = !drawSun_;
 
@@ -146,6 +161,10 @@ void RainApp::keyDown( KeyEvent event){
 	}
 }
 
+/**
+* This is run whenever a mouse button is pressed down.
+* @param event The MouseEvent that called the method
+*/
 void RainApp::mouseDown( MouseEvent event )
 {
 	remainingShapes--;
@@ -171,6 +190,9 @@ void RainApp::mouseDown( MouseEvent event )
 	shapeSentinel->reverseAll();
 }
 
+/**
+* This method updates variables before the draw method
+*/
 void RainApp::update()
 {
 	updateAll(rainSentinel);
@@ -199,6 +221,9 @@ void RainApp::update()
 
 }
 
+/**
+* This method draws things to the app window.
+*/
 void RainApp::draw()
 {
 	// clear out the window with black
