@@ -18,9 +18,6 @@
     <ClCompile Include="..\src\RainApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Circle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\DNode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

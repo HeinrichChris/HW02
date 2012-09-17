@@ -2,10 +2,6 @@
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
 #include "DoubleLinkedList.h"
-#include "Circle.h"
-#include "Square.h"
-#include "Rain.h"
-#include "Player.h"
 #include "cinder/ImageIo.h"
 #include "Resources.h"
 

@@ -104,7 +104,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Circle.cpp" />
     <ClCompile Include="..\src\DNode.cpp" />
     <ClCompile Include="..\src\RainApp.cpp" />
     <ClCompile Include="..\src\Shape.cpp" />
