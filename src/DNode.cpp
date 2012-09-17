@@ -1,26 +1,32 @@
 #include "DoubleLinkedList.h"
 
-void DNode::addNext(DNode node){
-	next->prev = &node;
-	node.next = next;
-	next = &node;
-	node.prev = this;
+DNode::DNode(){
+	next = prev = this;
+	next->prev = this;
+	shape = new Shape();
 }
 
-void DNode::addPrev(DNode node){
-	prev->next = &node;
-	node.prev = prev;
-	node.next = this;
-	prev = &node;
+bool DNode::isEmpty(){
+	if(this->next == this){
+		return true;
+	}
+
+	return false;
+}
+
+void DNode::addNext(DNode node, DNode thisNode){
+		node.next = thisNode.next;
+		node.prev = &thisNode;
+		thisNode.next->prev = &node;
+		thisNode.next = &node;
 }
 
 void DNode::remove(){
+	shape->rain();
+	/* this is how you would actually remove it
 	prev->next = next;
 	next->prev = prev;
-
-	delete(next);
-	delete(prev);
-	delete(shape);
+	*/
 }
 
 void DNode::reverse(){
@@ -30,14 +36,13 @@ void DNode::reverse(){
 }
 
 void DNode::reverseAll(){
-	DNode* current = next;
+	DNode* current = prev;
 
 	while(current != this){
 		current->reverse();
-		current = current->prev;
+		current = current->next;
 	}
 
-	delete(current);
 }
 
 void DNode::draw(){
@@ -49,15 +54,6 @@ void DNode::drawAll(){
 
 	while(current != this){
 		current->draw();
-		current = current->next;
-	}
-}
-
-void DNode::updateAll(){
-	DNode* current = this->next;
-
-	while(current != this){
-		current->shape->update();
 		current = current->next;
 	}
 }

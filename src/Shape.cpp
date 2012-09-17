@@ -1,4 +1,7 @@
 #include "Shape.h"
+#include "cinder\gl\gl.h"
+
+using namespace ci;
 
 Shape::Shape(){
 	x = y= z = 0;
@@ -9,7 +12,7 @@ Shape::Shape(){
 	color[1] = 255;
 	color[2] = 255;
 
-	hp = 100;
+	hp = 50;
 	type = -1;
 	radius = 10;
 }
@@ -32,6 +35,11 @@ void Shape::rain(){
 	type = 4;
 
 	hp = 5;
+	x = 100 + rand() % 300;
+	y = 100 ;
+
+	velX = 0;
+	velY = 0;
 }
 
 void Shape::circle(){
@@ -91,13 +99,18 @@ void Shape::update(){
 		y += velY;
 		z += velZ;
 
+		if(y > 800){
+			y = 0;
+			velY = 0;
+		}
+
 		if(type == 4){
-			if(velY > -10){
-				velY -= 1;
+			if(velY < 10){
+				velY += 1;
 			}
 		}
 		else{
-			color[0] = (int)(255 * (hp / 100.0));
+			color[0] = (int)(255.0 * (hp / 100.0));
 			color[2] = color[0];
 		}
 	}
@@ -105,43 +118,23 @@ void Shape::update(){
 
 void Shape::draw(){
 	if(type == 1){
-		glColor3f(color[0], color[1], color[2]);
-
-		// begin OpenGL drawing using triangles
-		glBegin(GL_TRIANGLE_FAN);
-		glVertex2f(x, y);
-
-		// I used double because of the sin/cos methods requiring double
-		for(double i = 0; i < 360; i+=5){
-			glVertex2f(x + sin(i) * radius, y + cos(i) * radius);
-		}
-
-		glEnd();
+		// begin OpenGL drawing
+		gl::color(color[0], color[1], color[2]);
+		// begin OpenGL drawing
+		gl::drawSolidCircle(Vec2f(x,y),radius);
 
 	}
 	else if(type == 2){
-		glColor3f(color[0], color[1], color[2]);
-
+		gl::color(color[0], color[1], color[2]);
 		// begin OpenGL drawing
-		glBegin(GL_QUADS);
-
-		// assign vertices for OpenGL
-		glVertex2f(x-radius, y-radius);
-		glVertex2f(x-radius, y+radius);
-		glVertex2f(x+radius, y-radius);
-		glVertex2f(x+radius, y+radius);
-
-		// end vertex assignment
-		glEnd();
+		gl::drawSolidRoundedRect(Rectf(x-radius, y-radius, x+radius, y+radius),5.0f);
 
 	}
 	else{
 		// set color
-		glColor3f(color[0], color[1], color[2]);
+		gl::color(color[0], color[1], color[2]);
 		// begin OpenGL drawing
-		glBegin(GL_POINTS);
-		glVertex2f(x, y);
-		glEnd();
+		gl::drawSolidCircle(Vec2f(x,y),5.0f);
 	}
 }
 
@@ -151,7 +144,7 @@ void Shape::collision(Shape* shape){
 			int distance = sqrt(pow(((double)(shape->getLoc()[0] - x)),2) + pow(((double)(shape->getLoc()[1] - y)),2));
 			if(distance <= radius){
 				shape->setVelocityX(shape->getLoc()[0] - x);
-				shape->setVelocityY(30); // This is not physically correct, but I want the rain to bounce up regardless of position
+				shape->setVelocityY(-30); // This is not physically correct, but I want the rain to bounce up regardless of position
 
 				hp--;
 				shape->setHP((shape->getHP()) - 1);
@@ -160,8 +153,8 @@ void Shape::collision(Shape* shape){
 
 	}
 	else if(type==2){
-		int xVelocityChange = 10;
-		int yVelocityChange = 30;
+		int xVelocityChange = -5;
+		int yVelocityChange = -5;
 
 		// shape type 4 = rain
 		if((*shape).getType() == 4){
@@ -170,7 +163,7 @@ void Shape::collision(Shape* shape){
 				(*shape).getLoc()[1] >= y - radius){
 					// bounce the rain up a bit and give it a random x velocity
 					shape->setVelocityY(yVelocityChange);
-					shape->setVelocityX(rand() % 30);
+					shape->setVelocityX(rand() % 5);
 
 					hp--;
 					shape->setHP((shape->getHP()) - 1);

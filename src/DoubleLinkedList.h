@@ -2,8 +2,9 @@
 
 class DNode {
 public:
-	void addNext(DNode);
-	void addPrev(DNode);
+	DNode();
+
+	void addNext(DNode, DNode);
 	void remove();
 
 	// this part is bad programming style, but the assignment itself asks for bad style.
@@ -18,5 +19,7 @@ public:
 	void draw();
 	void drawAll(); // only to be called by sentinel node
 
-	void updateAll(); // only to be called by sentinel node
+	//void updateAll(); // only to be called by sentinel node
+
+	bool isEmpty();
 };
