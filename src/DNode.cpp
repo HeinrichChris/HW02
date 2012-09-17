@@ -54,7 +54,7 @@ void DNode::drawAll(){
 }
 
 void DNode::updateAll(){
-	DNode* current = next;
+	DNode* current = this->next;
 
 	while(current != this){
 		current->shape->update();
