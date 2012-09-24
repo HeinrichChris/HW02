@@ -109,9 +109,9 @@
     <ClCompile Include="..\src\Shape.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\DoubleLinkedList.h" />
     <ClInclude Include="..\include\Resources.h" />
-    <ClInclude Include="..\src\DoubleLinkedList.h" />
-    <ClInclude Include="..\src\Shape.h" />
+    <ClInclude Include="..\include\Shape.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc" />

@@ -29,10 +29,10 @@
     <ClInclude Include="..\include\Resources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\DoubleLinkedList.h">
+    <ClInclude Include="..\include\DoubleLinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Shape.h">
+    <ClInclude Include="..\include\Shape.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

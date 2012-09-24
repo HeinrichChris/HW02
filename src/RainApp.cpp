@@ -31,8 +31,7 @@ class RainApp : public AppBasic {
 	  Surface* sun_;
 	  bool drawSun_;
 
-	  int phase;
-	  int remainingShapes;
+	  int rainCount;
 
 	  uint8_t* surfaceData_, *imgData_, *surfaceData2_, *imgData2_;
 	  static const int surfaceSize_ = 1028;
@@ -103,6 +102,8 @@ void RainApp::setup()
 		}
 	}
 
+	rainCount = 0;
+
 	Shape* dummy = new Shape();
 	dummy->square();
 
@@ -111,9 +112,6 @@ void RainApp::setup()
 
 	rainSentinel->shape = dummy;
 	shapeSentinel->shape = dummy;
-
-	phase = 1;
-	remainingShapes = 2;
 
 	rain1 = new DNode();
 	rain1->shape->rain();
@@ -126,6 +124,10 @@ void RainApp::setup()
 	rainSentinel->prev = rain2;
 	rain2->prev = rain1;
 	rain1->prev = rainSentinel;
+
+	DNode* rain3 = new DNode();
+	rain3->shape->rain();
+	rainSentinel->addNext(rain3);
 
 	shape1 = new DNode();
 	shape1->shape->square();
@@ -163,7 +165,6 @@ void RainApp::keyDown( KeyEvent event){
 */
 void RainApp::mouseDown( MouseEvent event )
 {
-	remainingShapes--;
 	Shape* shape_ = new Shape();
 
 	if(event.isLeftDown()){
@@ -194,6 +195,14 @@ void RainApp::update()
 	updateAll(rainSentinel);
 	updateAll(shapeSentinel);
 
+	if(rainCount % 20 == 0){
+		DNode* newNode = new DNode();
+		newNode->shape->rain();
+		rainSentinel->addNext(newNode);
+	}
+	rainCount++;
+
+
 		DNode* rainDetection = rainSentinel->next;
 		DNode* shapeDetection = shapeSentinel->next;
 
@@ -205,13 +214,13 @@ void RainApp::update()
 				shapeDetection = shapeDetection->next;
 
 				if(shapeDetection->prev->shape-> getHP() <= 0 && shapeDetection->prev != shapeSentinel){
-					shapeDetection->prev->remove();
+					shapeDetection->prev->shape->rain();
 				}
 			}
 			rainDetection = rainDetection->next;
 
-			if(rainDetection->prev->shape-> getHP() <= 0){
-				rainDetection->prev->remove();
+			if(rainDetection->shape-> getHP() <= 0 || rainDetection->shape->getLoc()[0] > appHeight_ || rainDetection->shape->getLoc()[1] < 0 || rainDetection->shape->getLoc()[1] > appWidth_){
+				rainDetection->shape->rain();
 			}
 		}
 
@@ -225,6 +234,11 @@ void RainApp::draw()
 	// clear out the window with black
 	gl::clear( Color( 0, 0, 0 ) ); 
 
+
+	// transparency = alpha
+	// this is something interesting that manipulates alpha
+	// therefore, this should be something interesting that manipulates transparency in some way
+	// Also want to point out that by setting the alpha level in the surfaces, that the displayed images are slightly off of their original values.
 	gl::enableAlphaBlending();
 	if(drawSun_){
 		glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ONE_MINUS_DST_ALPHA);

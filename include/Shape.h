@@ -31,7 +31,7 @@ protected:
 	int x;
 	int y;
 	int z;
-	int radius;
+	int radius; // I call this radius, but it is shared between circle-types and square-types (although square-types have rounded corners, so are almost circles given their current size)
 
 	int velX;
 	int velY;

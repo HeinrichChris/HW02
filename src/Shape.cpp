@@ -169,7 +169,7 @@ void Shape::collision(Shape* shape){
 			int distance = sqrt(pow(((double)(shape->getLoc()[0] - x)),2) + pow(((double)(shape->getLoc()[1] - y)),2));
 			if(distance <= radius){
 				shape->setVelocityX(shape->getLoc()[0] - x);
-				shape->setVelocityY(-30); // This is not physically correct, but I want the rain to bounce up regardless of position
+				shape->setVelocityY(-10); // This is not physically correct, but I want the rain to bounce up regardless of position
 
 				hp--;
 				shape->setHP((shape->getHP()) - 1);
@@ -178,29 +178,31 @@ void Shape::collision(Shape* shape){
 
 	}
 	else if(type==2){
-		int xVelocityChange = -5;
-		int yVelocityChange = -5;
+		int xVelocityChange = rand() % 10 - 5;
+		int yVelocityChange = -10;
 
 		// shape type 4 = rain
 		if((*shape).getType() == 4){
 			// we only care about y-direction here
 			if((*shape).getLoc()[1] <= y + radius &&
-				(*shape).getLoc()[1] >= y - radius){
+				(*shape).getLoc()[1] >= y - radius &&
+				((*shape).getLoc()[0] >= x - radius &&
+				(*shape).getLoc()[0] <= x + radius)){
 					// bounce the rain up a bit and give it a random x velocity
 					shape->setVelocityY(yVelocityChange);
-					shape->setVelocityX(rand() % 5);
+					shape->setVelocityX(xVelocityChange);
 
 					hp--;
 					shape->setHP((shape->getHP()) - 1);
 			}
 			// now worry about x-direction
-			else if((*shape).getLoc()[1] <= y + radius &&
+			/*else if((*shape).getLoc()[1] <= y + radius &&
 				(*shape).getLoc()[1] >= y - radius &&
 				((*shape).getLoc()[0] >= x - radius ||
 				(*shape).getLoc()[0] <= x + radius)){
 					// bounce the rain off in the x direction
 					if((*shape).getLoc()[0] >= x - radius){
-						shape->setVelocityX(-1 * xVelocityChange);
+						shape->setVelocityX(xVelocityChange);
 					}
 					else{
 						shape->setVelocityX(xVelocityChange);
@@ -208,7 +210,7 @@ void Shape::collision(Shape* shape){
 
 					hp--;
 					shape->setHP((shape->getHP()) - 1);
-			}
+			}*/
 		}
 
 	}

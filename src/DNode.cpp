@@ -25,22 +25,19 @@ bool DNode::isEmpty(){
 * @param node The node to be added
 * @param thisNode The node that gains a new node following it
 */
-void DNode::addNext(DNode node, DNode thisNode){
-		node.next = thisNode.next;
-		node.prev = &thisNode;
-		thisNode.next->prev = &node;
-		thisNode.next = &node;
+void DNode::addNext(DNode* node){
+		node->next = next;
+		node->prev = this;
+		next->prev = node;
+		next = node;
 }
 
 /**
-* This resets the rain data when it would be otherwise destroyed.
+* This removes the DNode from its list without deleting it
 */
 void DNode::remove(){
-	shape->rain();
-	/* this is how you would actually remove it
 	prev->next = next;
 	next->prev = prev;
-	*/
 }
 
 /**

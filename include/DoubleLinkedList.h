@@ -4,7 +4,7 @@ class DNode {
 public:
 	DNode();
 
-	void addNext(DNode, DNode);
+	void addNext(DNode*);
 	void remove();
 
 	// this part is bad programming style, but the assignment itself asks for bad style.
